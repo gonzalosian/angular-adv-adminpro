@@ -5,23 +5,24 @@
 
     <div class="page-wrapper">
         <div class="container-fluid">
+            
             <!-- BreadCrumbs -->
             <app-breadcrumbs></app-breadcrumbs>
+
             <!-- Sistema de rutas -->
+            <router-outlet></router-outlet>
 
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <!-- This is some text within a card block. -->
-                            <router-outlet></router-outlet>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->
@@ -33,7 +34,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
-            © 20xx Admin Pro by wrappixel.com
+            © {{year}} Admin Pro by wrappixel.com
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

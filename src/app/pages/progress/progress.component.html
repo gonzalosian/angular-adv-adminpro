@@ -1,1 +1,65 @@
-<p>progress works!</p>
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- Mi progress!! -->
+                <h4 class="card-title">Striped Progress bar</h4>
+                
+                <div class="progress m-t-20">
+                    <div class="progress-bar bg-primary progress-bar-striped active " 
+                         style="height:5px;" 
+                         [style.width]="getProgreso1"
+                         role="progressbar">
+                        </div>
+                </div>
+
+                <div class="progress m-t-20">
+                    <div class="progress-bar bg-info progress-bar-striped active " 
+                         style="height:5px;" 
+                         [style.width]="getProgreso2"
+                         role="progressbar">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                
+                <app-incrementador  (valor)=" progreso1 = $event " 
+                                    [valor]=" progreso1 " >
+                </app-incrementador>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <app-incrementador  (valor)=" progreso2 = $event " 
+                                    [valor]=" progreso2 " 
+                                    [btnClass]="'btn-info'" >
+                <!-- [btnClass]="btn btn-info": Explota porque es tomado por Angular como el valor de una propiedad, siendo que 
+                     el '-' no puede ser utilizado por JS
+                     btnClass="btn btn-info": De esta forma lo manda como string literal, pero habrá alertas, porque Angular no
+                     sabe si necesitamos emitir o recibir.
+                     [btnClass]="'btn btn-info'": Así funcionará correctamente  -->
+                </app-incrementador>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
