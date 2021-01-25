@@ -20,11 +20,11 @@ export class RegisterComponent {
 
   // Validaciones del formulario
   public registerForm = this.fb.group({
-    nombre: [ 'Gonzalo', [ Validators.required, Validators.minLength(3) ] ],
-    email: [ 'gonzalosian@gmail.com', [Validators.required, Validators.email] ],
-    password: [ '123456', Validators.required ],
-    password2: [ '123456', Validators.required ],
-    terminos: [ true, Validators.required ],
+    nombre: [ '', [ Validators.required, Validators.minLength(3) ] ],
+    email: [ '', [Validators.required, Validators.email] ],
+    password: [ '', Validators.required ],
+    password2: [ '', Validators.required ],
+    terminos: [ false, Validators.required ],
   }, {
     Validators: this.passwordsIguales( 'password', 'password2' )
   })

@@ -9,6 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators'; // Disparará un efecto s
 import { environment } from '../../environments/environment';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interfaces';
+import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
 
@@ -20,6 +21,7 @@ declare const gapi: any;
 export class UsuarioService {
 
   public auth2: any;
+  public usuario: Usuario;
 
   constructor( private http: HttpClient,
                private router: Router,
@@ -27,6 +29,15 @@ export class UsuarioService {
 
     // En Angular, los servicios son Singleton, o sea, solo habrá una instancia
     this.googleInit();
+  }
+
+
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid(): string {
+    return this.usuario.uid || '';
   }
 
 
@@ -62,7 +73,7 @@ export class UsuarioService {
       // Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?
       this.ngZone.run( () => {
 
-        console.log('User signed out.');
+        // console.log('User signed out.');
         this.router.navigateByUrl('/login');
       } )
 
@@ -72,23 +83,26 @@ export class UsuarioService {
   
   validarToken(): Observable<boolean> {
     // Este servicios lo utilizaremos en el auth.guard
-    const token  = localStorage.getItem('token') || '';
+    // const token = localStorage.getItem('token') || '';
 
     return this.http.get(`${base_url}/login/renew`, {
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(
         // esto siempre devolverá un observable
-        tap( (resp: any) => {
+        map( (resp: any) => {
           // console.log(resp);
+          const { email, google, img = '', nombre, role, uid } = resp.usuario;
+          this.usuario = new Usuario( nombre, email, '', img, google, role, uid );
+          // this.usuario.imprimirUsuario();
           localStorage.setItem('token', resp.token);
+          return true;
         } ),
-        map( resp => true ),
+        // map( resp => true ),
         // of va a crear/retornar un nuevo observable con base al valor que le pasemos, sin romper el ciclo.
         catchError( error => of(false) )
       );
-
   }
 
 
@@ -102,6 +116,21 @@ export class UsuarioService {
                           localStorage.setItem('token', resp.token);
                         } )
                       );
+  }
+
+// No utilizamos una interface para ver otra forma de resolver
+  actualizarPerfil( data: { email: string, nombre: string, role: string } ){
+
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
+
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
   }
   
 
