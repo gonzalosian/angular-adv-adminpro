@@ -13,6 +13,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
+// Mantenimientos
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 const routes: Routes = [
     // Las modificaciones realizadas fueron para que el "dashboard" sea la ruta por defecto, y las rutas
@@ -31,6 +33,9 @@ const routes: Routes = [
           { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
           { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
           { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
+          
+          // Mantenimientos
+          { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios de aplicación' } },
 
         //   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
         ]

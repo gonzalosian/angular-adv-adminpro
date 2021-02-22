@@ -4,12 +4,16 @@ import { Router } from '@angular/router';
 
 // Gracias a que las peticiones son observable, podemos concatenarle un pipe que pase por algun procedimiento
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators'; // Disparará un efecto secundario
+import { catchError, delay, map, tap } from 'rxjs/operators'; // Disparará un efecto secundario
 
 import { environment } from '../../environments/environment';
+// Interfaces
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interfaces';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
+
 import { Usuario } from '../models/usuario.model';
+// import { url } from 'inspector';
 
 const base_url = environment.base_url;
 
@@ -38,6 +42,14 @@ export class UsuarioService {
 
   get uid(): string {
     return this.usuario.uid || '';
+  }
+
+  get header() {
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
 
 
@@ -85,11 +97,7 @@ export class UsuarioService {
     // Este servicios lo utilizaremos en el auth.guard
     // const token = localStorage.getItem('token') || '';
 
-    return this.http.get(`${base_url}/login/renew`, {
-      headers: {
-        'x-token': this.token
-      }
-    }).pipe(
+    return this.http.get(`${base_url}/login/renew`, this.header).pipe(
         // esto siempre devolverá un observable
         map( (resp: any) => {
           // console.log(resp);
@@ -126,11 +134,7 @@ export class UsuarioService {
       role: this.usuario.role
     }
 
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token
-      }
-    });
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, this.header);
   }
   
 
@@ -151,6 +155,46 @@ export class UsuarioService {
                           localStorage.setItem('token', resp.token);
                         } )
                       );
+  }
+
+
+  cargarUsuarios( desde: number = 0 ){
+    // http://localhost:3005/api/usuarios?desde=0
+    const url = `${ base_url }/usuarios?desde=${ desde }`;
+
+    // Se podría hacer así, pero conviene hacer una interface
+    // return this.http.get<{ total: Number, usuarios: Usuario[] }>( url, this.header );
+    return this.http.get<CargarUsuario>( url, this.header )
+      .pipe(
+        // delay(5000),
+        map( resp => {
+          // console.log(resp);
+          // cambiar el arreglo de objetos por un arreglo de tipo usuario
+          // resp.usuarios sé que es un listado, que puedo pasarlo por un map() para transformar arreglo y devolver uno diferente
+          const usuarios = resp.usuarios.map( 
+            user => new Usuario( user.nombre, user.email, '', user.img, user.google, user.role, user.uid ) 
+          );
+          
+          // return resp;
+          return {
+            total: resp.total,
+            usuarios
+          };
+        } )
+      )
+  }
+
+  eliminarUsuario( usuario: Usuario ){
+    // console.log('eliminado');
+    //http://localhost:3005/api/usuarios/600555ba42c5543e686b2e5b
+    const url = `${ base_url }/usuarios/${ usuario.uid }`;
+
+    return this.http.delete( url, this.header )
+  }
+
+
+  guardarUsuario( usuario: Usuario ){
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.header);
   }
 
 }
