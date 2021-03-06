@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+// import { ImagenPipe } from './pipes/imagen.pipe'; // no debería estar acá porque podemos tener varios pipes
 
 
 @NgModule({
