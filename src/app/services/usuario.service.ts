@@ -40,6 +40,10 @@ export class UsuarioService {
     return localStorage.getItem('token') || '';
   }
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
+  }
+
   get uid(): string {
     return this.usuario.uid || '';
   }
@@ -76,8 +80,15 @@ export class UsuarioService {
   }
 
 
+  guardarLocalStorage( token: string, menu: any ){
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu)); // solo podemos grabar string
+  }
+
+
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
     
     this.auth2.signOut().then( () => {
       
@@ -104,7 +115,11 @@ export class UsuarioService {
           const { email, google, img = '', nombre, role, uid } = resp.usuario;
           this.usuario = new Usuario( nombre, email, '', img, google, role, uid );
           // this.usuario.imprimirUsuario();
-          localStorage.setItem('token', resp.token);
+
+          // localStorage.setItem('token', resp.token);
+          // localStorage.setItem('menu', resp.menu);
+          this.guardarLocalStorage( resp.token, resp.menu );
+
           return true;
         } ),
         // map( resp => true ),
@@ -121,7 +136,9 @@ export class UsuarioService {
                         // esto siempre devolverá un observable
                         tap( (resp: any) => {
                           // console.log(resp);
-                          localStorage.setItem('token', resp.token);
+                          // localStorage.setItem('token', resp.token);
+                          // localStorage.setItem('menu', resp.menu);
+                          this.guardarLocalStorage( resp.token, resp.menu );
                         } )
                       );
   }
@@ -142,7 +159,9 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`, formData)
                       .pipe(
                         tap( (resp: any) => {
-                          localStorage.setItem('token', resp.token);
+                          // localStorage.setItem('token', resp.token);
+                          // localStorage.setItem('menu', resp.menu);
+                          this.guardarLocalStorage( resp.token, resp.menu );
                         } )
                       );
   }
@@ -152,7 +171,9 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login/google`, {token} )
                       .pipe(
                         tap( (resp: any) => {
-                          localStorage.setItem('token', resp.token);
+                          // localStorage.setItem('token', resp.token);
+                          // localStorage.setItem('menu', resp.menu);
+                          this.guardarLocalStorage( resp.token, resp.menu );
                         } )
                       );
   }

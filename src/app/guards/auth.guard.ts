@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
 
-      console.log('Pasó por el CanActivate del guard');
+      // console.log('Pasó por el CanActivate del guard');
       
       // this.usuarioService.validarToken()
       //   .subscribe( resp => {

@@ -54,9 +54,17 @@
                     <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
                         <i class="ti-search"></i>
                     </a>
-                    <form class="app-search">
-                        <input type="text" class="form-control" placeholder="Search & enter"> 
-                        <a class="srh-btn"><i class="ti-close"></i></a> 
+                    <form class="app-search"
+                            (submit)=" buscar( txtTermino.value ) " >
+                        <!-- Esta haciendo un posteo completo porque en el shared.module.ts falta el manejo de formulario
+                        importando el FormsModule -->
+                        <input type="text" 
+                                class="form-control" 
+                                placeholder="Buscar medicos, hospitales o usuarios..."
+                                #txtTermino > 
+                        <a class="srh-btn">
+                            <i class="ti-close"></i>
+                        </a> 
                     </form>
                 </li>
                 <!-- ============================================================== -->
