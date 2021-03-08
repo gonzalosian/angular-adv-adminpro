@@ -240,7 +240,13 @@
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" 
                         aria-haspopup="true" aria-expanded="false">
                         <!-- <img src="./assets/images/users/1.jpg" alt="user" class="profile-pic" /> -->
-                        <img [src]="usuario.imagenUrl" alt="user" class="profile-pic" />
+                        
+                        <!-- <img [src]="usuario.imagenUrl" alt="user" class="profile-pic" /> -->
+                        <img [src]="usuario.imagenUrl" referrerpolicy="no-referrer" alt="user" class="profile-pic" />
+
+                        <!-- <img  [src]="usuario.imagenUrl ? usuario.imagenUrl : 'img/defaultImg.jpg'" 
+                                alt="user" 
+                                class="profile-pic" /> -->
                     </a>
                     <div class="dropdown-menu dropdown-menu-right animated fadeIn fast">
                         <ul class="dropdown-user">
