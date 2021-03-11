@@ -70,15 +70,39 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   }
 
 
+  // eliminarHospital( hospital: Hospital ){
+  //   // console.log( hospital );
+  //   this.hospitalService.eliminarHospital( hospital._id )
+  //     .subscribe( resp => {
+  //       this.cargarHospitales();
+  //       Swal.fire('Eliminado', hospital.nombre, 'success');
+  //     }, (err) => {
+  //       Swal.fire('Error', err.error.msg, 'error');
+  //     } )
+  // }
+
   eliminarHospital( hospital: Hospital ){
-    // console.log( hospital );
-    this.hospitalService.eliminarHospital( hospital._id )
-      .subscribe( resp => {
-        this.cargarHospitales();
-        Swal.fire('Eliminado', hospital.nombre, 'success');
-      }, (err) => {
-        Swal.fire('Error', err.error.msg, 'error');
-      } )
+
+    Swal.fire({
+      title: '¿Borrar hospital?',
+      text: `Está a punto de borrar a ${hospital.nombre}`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, borrarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.hospitalService.eliminarHospital(hospital._id)
+          .subscribe( resp => {
+            this.cargarHospitales();
+
+            Swal.fire(
+              'Eliminado!',
+              `El hospital ${hospital.nombre} a sido eliminado.`,
+              'success'
+            );            
+          } )
+      }
+    })
   }
 
 

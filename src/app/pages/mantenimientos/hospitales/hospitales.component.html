@@ -63,12 +63,14 @@
                         <tbody>
                             <tr *ngFor="let hospital of hospitales" >
                                 <!-- <td> {{ hospital.img | imagen:'hospitales' }} </td> -->
+
                                 <td class="text-center" >
                                     <img [src]=" hospital.img | imagen:'hospitales' " 
                                         [alt]="hospital.nombre"
                                         class="w100 avatar cursor"
                                         (click)="abrirModal(hospital)" >
                                 </td>
+
                                 <td>
                                     <input type="text" 
                                         class="form-control" 

@@ -24,6 +24,7 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { NoticiasComponent } from './mantenimientos/noticias/noticias.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { MedicoComponent } from './mantenimientos/medicos/medico.component';
     HospitalesComponent,
     MedicosComponent,
     MedicoComponent,
-    BusquedaComponent
+    BusquedaComponent,
+    NoticiasComponent
   ],
   exports: [
     DashboardComponent,

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 const base_url = environment.base_url;
 
@@ -8,7 +8,7 @@ const base_url = environment.base_url;
 })
 export class ImagenPipe implements PipeTransform {
 
-  transform(img: string, tipo: 'usuarios'|'medicos'|'hospitales' ): string {
+  transform(img: string, tipo: 'usuarios'|'medicos'|'hospitales'|'noticias' ): string {
     // return 'hola mundo' + img + ' ' + tipo;
 
     if ( !img ){
