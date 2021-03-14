@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment'
 import { Usuario } from '../models/usuario.model';
 import { Hospital } from '../models/hospital.model';
 import { Medico } from '../models/medico.model';
+import { Noticia } from '../models/noticia.model';
 
 const base_url = environment.base_url;
 const tipo = [];
@@ -50,6 +51,10 @@ export class BusquedasService {
     return resultados;
   }
 
+  private transformarNoticias( resultados: any[] ):Noticia[] {
+    return resultados;
+  }
+
 
   busquedaGlobal( termino: string ){
     const url = `${ base_url }/todo/${ termino }`;
@@ -59,7 +64,7 @@ export class BusquedasService {
 
 
   buscar( 
-    tipo: 'usuarios'|'medicos'|'hospitales',
+    tipo: 'usuarios'|'medicos'|'hospitales'|'noticias',
     termino: string ) {
     // http://localhost:3005/api/todo/coleccion/usuarios/al
     const url = `${ base_url }/todo/coleccion/${ tipo }/${ termino }`;
@@ -75,6 +80,8 @@ export class BusquedasService {
               return this.transformarHospitales( resp.resultado );
             case 'medicos':
               return this.transformarMedicos( resp.resultado );
+            case 'noticias':
+              return this.transformarNoticias( resp.resultado );
           
             default:
               return [];

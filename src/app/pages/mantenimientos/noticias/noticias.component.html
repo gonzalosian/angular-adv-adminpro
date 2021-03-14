@@ -1,1 +1,116 @@
-<p>noticias works!</p>
+<div class="row animate fadeIn fast " >
+    <div class="col-12" >
+        <div class="card" >
+            <div class="card-body" >
+
+                <input type="text"
+                        class="form-control"
+                        placeholder="Buscar noticia..."
+                        (keyup)="buscar(txtTermino.value)"
+                        #txtTermino >
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row animate fadeIn fast" *ngIf="cargando" >
+    <div class="col-12" >
+
+        <div class="alert alert-info text-center ">
+          <h4 class="alert-heading"> Cargando </h4>
+          <i class="fa fa-spin fa-refresh fa-2x " ></i>
+          <p class="mb-0"> Por favor espere </p>
+        </div>
+        
+    </div>
+</div>
+
+
+<div class="row" *ngIf="!cargando" >
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+
+                <!-- <h4 class="card-title"> Médicos - ({{ medicos.length }}) </h4>
+                <h6 class="card-subtitle"> Médicos registrados en la aplicación </h6> -->
+                
+                <div class="row" >
+                    <div class="col-8" >
+                        <h4 class="card-title"> Noticias ({{ totalNoticias }}) - {{desde}} </h4>
+                        <h6 class="card-subtitle"> Noticias registradas en la aplicación </h6>
+                    </div>
+
+                    <div class="col" >
+                        <div class=" text-right " >
+                            <a class=" btn btn-primary " 
+                                routerLink="/dashboard/noticia/nuevo" > 
+                                <i class=" fa fa-hospital-o " ></i> Crear noticia 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-striped">
+
+                        <thead>
+                            <tr>
+                                <th class="w100" >Foto</th>
+                                <th>Nombre</th>
+                                <th class=" w100 text-nowrap">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let noticia of noticias" >
+
+                                <td class="text-center" >
+                                    <img [src]=" noticia.img | imagen:'noticias' " 
+                                        [alt]="noticia.titulo"
+                                        class="w100 avatar cursor"
+                                        (click)="abrirModal(noticia)" >
+                                         <!-- (click)="abrirModal(noticia)" -->
+                                </td>
+
+                                <td> {{ noticia.titulo }} </td>
+                                
+                                <td class="text-nowrap text-center ">
+                                    <!-- ['/dashboard','medico', medico._id] otra forma... -->
+                                    <a [routerLink]=" ['/dashboard/noticia', noticia._id] "
+                                        class="cursor" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Editar"> 
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i> 
+                                    </a>
+                                    <a class="cursor" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Borrar"
+                                        (click)="eliminarNoticia(noticia)" > 
+                                        <i class="fa fa-close text-danger"></i> 
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <!-- <button class="btn btn-secondary" > Anteriores </button>
+                &nbsp;
+                <button class="btn btn-secondary" > Siguiente </button> -->
+
+                <div *ngIf="txtTermino.length !== 0" >
+                    <button (click)="cambiarPagina(-4)" class="btn btn-secondary" > Anteriores </button>
+                    &nbsp;
+                    <button (click)="cambiarPagina(4)" class="btn btn-secondary" > Siguiente </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

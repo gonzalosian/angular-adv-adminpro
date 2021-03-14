@@ -9,7 +9,7 @@ const base_url = environment.base_url;
 export class ModalImagenService {
 
   private _ocultrarModal: boolean = true;
-  public tipo: 'usuarios'|'medicos'|'hospitales';
+  public tipo: 'usuarios'|'medicos'|'hospitales'|'noticias';
   public id: string;
   public img: string;
   // emitiremos un valor cuando la imagen cambie
@@ -20,7 +20,7 @@ export class ModalImagenService {
   }
 
   abrirModal(
-    tipo: 'usuarios'|'medicos'|'hospitales',
+    tipo: 'usuarios'|'medicos'|'hospitales'|'noticias',
     id: string,
     img: string = 'no-img')
   {
@@ -29,8 +29,7 @@ export class ModalImagenService {
     this.id = id;
     this.img = img;
 
-    console.log(img);
-    
+    // console.log(img);
 
     //http://localhost:3005/api/upload/usuarios/xczxczx.jpg
     if( img.includes('https') ){

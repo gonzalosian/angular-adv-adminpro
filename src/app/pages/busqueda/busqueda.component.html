@@ -106,4 +106,40 @@
         </div>
     </div>
 
+    <div class="col-4" >
+        <div class="card" >
+            <div class="card-body" >
+                <h3>Noticias</h3>
+
+                <div class="alert alert-info animated fadeIn fast"
+                     *ngIf="noticias.length === 0" >
+                  <p class="mb-0"> No hay noticias con ese término </p>
+                </div>
+
+                <div class="table-responsive"
+                     *ngIf="noticias.length > 0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Título</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let noticia of noticias"
+                                class=" animated fadeIn fast cursor" >
+                                <td>
+                                    <img [src]="noticia.img | imagen:'noticias'" class="w50" >
+                                </td>
+                                <td> {{ noticia.titulo }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div> 

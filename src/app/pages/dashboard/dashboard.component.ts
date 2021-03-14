@@ -24,11 +24,10 @@ export class DashboardComponent implements OnInit {
     this.cargando = true;
 
     this.noticiaService.cargarNoticias()
-      .subscribe( noticias => {
+      .subscribe( res => {
         this.cargando = false;
-        console.log(noticias);
-        this.noticias = noticias;
-        
+        // console.log(noticias);
+        this.noticias = res.noticias;
       } )
   }
 

@@ -1,0 +1,27 @@
+<div class="row" *ngIf="noticiaSeleccionada" >
+    <div class="col-12 m-t-5">
+        
+        <h2 class="m-b-0"> {{ noticiaSeleccionada.titulo }} </h2>
+        <br>
+        <!-- <p class="text-muted m-t-0 font-12">
+            Use card groups to render cards as a single, attached element with equal width and height columns.
+        </p> -->
+        
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top img-responsive" 
+                [src]=" noticiaSeleccionada.img | imagen:'noticias' "
+                alt="Card image cap">
+                
+                <div class="card-body">
+                    <h4 class="card-title"> {{ noticiaSeleccionada.subtitulo }} </h4>
+                    <p class="card-text" > {{ noticiaSeleccionada.descripcion }} </p>
+                    <p class="card-text"><small class="text-muted">Last updated 2 day ago</small></p>
+                </div>
+
+                <a routerLink="/dashboard" class="btn btn-info">Atrás</a>
+            </div>
+        </div>
+
+    </div>
+</div>

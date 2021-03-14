@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+
 import { Medico } from '../models/medico.model';
 
 const base_url = environment.base_url;

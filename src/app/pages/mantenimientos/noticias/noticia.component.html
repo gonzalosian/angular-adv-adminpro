@@ -1,0 +1,103 @@
+<div class="row" >
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">Noticia</h4>
+                <h6 class="card-subtitle">Actualizar información</h6>
+
+                <form class="form-horizontal p-t-20"
+                        [formGroup]="noticiaForm"
+                        (ngSubmit)="guardarNoticia()" >
+
+                    <div class="form-group row" *ngIf="noticiaSeleccionado" >
+                        <label for="exampleInputuname3" class="col-sm-3 control-label">Foto</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <img [src]=" noticiaSeleccionado.img | imagen:'noticias' "
+                                    class="w200 cursor" 
+                                    [alt]=" noticiaSeleccionado.titulo "
+                                    (click)="abrirModal(noticiaSeleccionado)" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputuname1" class="col-sm-3 control-label">Título</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                <input type="text" 
+                                        class="form-control" 
+                                        id="exampleInputuname1" 
+                                        placeholder="Título de la Noticia"
+                                        formControlName="titulo" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputuname2" class="col-sm-3 control-label">Sub-Título</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-text"></i></div>
+                                <input type="text" 
+                                        class="form-control" 
+                                        id="exampleInputuname2" 
+                                        placeholder="Sub-Título de la Noticia"
+                                        formControlName="subtitulo" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group row">
+                        <label for="exampleInputuname3" class="col-sm-3 control-label">Descripción</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+
+                                <input type="text" 
+                                        class="form-control" 
+                                        id="exampleInputuname3" 
+                                        placeholder="Descripción de la Noticia"
+                                        formControlName="descripcion" >
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="form-group row">
+                        <label for="exampleInputuname4" class="col-sm-3 control-label">Descripción</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <textarea class="form-control" 
+                                        name="" 
+                                        id="exampleInputuname4" 
+                                        placeholder="Descripción de la Noticia"
+                                        cols="30" rows="10"
+                                        formControlName="descripcion">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row m-b-0">
+                        <div class="offset-sm-3 col-sm-9">
+                            <button type="submit" 
+                                    class="btn btn-success waves-effect waves-light"
+                                    [disabled]="noticiaForm.invalid" >
+                                <i class="fa fa-save "></i> Guardar
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

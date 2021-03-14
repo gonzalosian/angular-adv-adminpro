@@ -2,9 +2,7 @@
 // privado es que no se está exportando.
 interface _NoticiaUser {
     _id: string,
-    titulo: string,
-    subtitulo: string,
-    descripcion: string,
+    nombre: string,
     img: string
 }
 
@@ -13,6 +11,7 @@ interface _NoticiaUser {
 export class Noticia {
 
     constructor(
+        public nombre: string,
         public titulo: string,
         public subtitulo: string,
         public descripcion: string,
